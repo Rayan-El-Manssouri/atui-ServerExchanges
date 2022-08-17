@@ -1,7 +1,14 @@
 <?php  
+error_reporting(0);
+//Connexion a la bdd 
 require_once 'bdd/database.php';
+// Création de l'instance de la classe
 $database = new Database();
+
+//Démarage de la session (a mettre dans toutes les pages.)
 session_start();
+
+//Récuperation de la function est_connecter (Boolean)
 require_once 'function/auth.php';
 
 if(!est_connecter()){
@@ -31,34 +38,44 @@ if(!est_connecter()){
         <input type="password" placeholder="Mot de passe" name="password" required> <br> <br>
         <input type="submit" name="send">
         <a href="logout.php">
-            Inscription
+            Je n'ai pas de compte
         </a>
     </form>
 <?php 
     if(!empty($_POST['send'])){
-        $email = htmlentities($_POST['email']);
-        $password = htmlentities($_POST['password']);
-        $query = "SELECT * FROM utilisateur WHERE BINARY email='".$email."' AND BINARY password='".$password."' ";
-        $data = $database->read($query);
-        if(!empty($data[0])){
-            $_SESSION['email'] = $data[0]["email"];
-            $_SESSION['id'] = $data[0]["IdUtilisateur"];
-            $_SESSION['connecte'] = 1;
-            ?>
-            <script>
-            location.replace("confirmer/panel.php");
-            </script>
-            <?php
-            die();
-        }else{
-        ?>
-        <script>
-            alert("Email ou le mot de passe est incorect.")
-            location.replace("")
-        </script>            
-        <?php
-         }
+            // htmlentities est une function en php pour éviter les fails du code html.
+            $atuiServerExchanges_Sendemail = htmlentities($_POST['email']);
+            $atuiServerExchanges_Sendpassword = htmlentities($_POST['password']);
+            //BINARY est en sql pour qui prend compte des majuscule est minuscule.
+            $query = "SELECT * FROM utilisateur WHERE BINARY email='".$atuiServerExchanges_Sendemail."' AND BINARY password='".$atuiServerExchanges_Sendpassword."' ";
+            $data = $database->read($query);
+
+            if(!empty($data[0])){
+                //Recuperation de l'email
+                $_SESSION['email'] = $data[0]["email"];
+
+                //Recuperation de l'id de l'utilisateur ce qui ous permettra de savoir a qui ça appartient.
+                $_SESSION['id'] = $data[0]["IdUtilisateur"];
+
+                // Variable connecte qui dit si le compte connecter ou pas. $_SESSION['connecte'] = 0 => déconnecter ,  $_SESSION['connecte'] = 1 => connecter.
+                $_SESSION['connecte'] = 1;
+                ?>
+                    <script>
+                        // On le redirige aux panel si tous est ok.
+                        location.replace("confirmer/panel.php");
+                    </script>
+                <?php
+            }else{
+                $atuiServerExchanges_Error = "Mot de passe ou email incorect";
+                ?>
+                    <script>
+                        location.replace("sign.php?status=<?=$atuiServerExchanges_Error?>")
+                    </script>
+                <?php
+            }
         }
+        
+        echo $_GET['status'];
         ?>
 </body>
 </html>

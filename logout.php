@@ -1,13 +1,14 @@
-<?php 
-erroR_reporting(0);
+<?php
+//On dégage tous les erreurs inutiles. 
+error_reporting(0);
+
+// Connexion a la bdd
 require_once 'bdd/database.php';
 $database = new Database();
-
-
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,20 +23,32 @@ $database = new Database();
         <input type="submit" name="send" value="S'inscrire">
     </form>
     <?php 
+
+    //On regarder si le formulaire est vide ou pas.
     if(!empty($_POST['send'])){
+        // On évite les failles html
         $email = htmlentities($_POST['email']);
+
         $password = htmlentities($_POST['password']);
-        $query = "SELECT * FROM utilisateur WHERE BINARY email='".$email."' AND BINARY password='".$password."' ";
+        $password_ash = password_hash($password, PASSWORD_DEFAULT);
+
+        // On regarder si l'utilisateur existe ou pas.
+        $query = "SELECT * FROM utilisateur WHERE BINARY email='".$email."'";
         $data = $database->read($query);
+        foreach($data as $dataV2):
+            $password_ash = $dataV2['password_ash'];
+            
+        endforeach;
+        
         if(!empty($data[0])){
-            ?>
-                <script>
-                    alert("Utilisateur déjà enregistrer.")
-                    location.replace("")
-                </script>
-            <?php
+                ?>
+                    <script>
+                        location.replace("sign.php?status=Email déjà enregistrer.")
+                    </script>
+                <?php
+
         }else{
-            $query2 = "INSERT INTO `utilisateur`(`email`, `password`) VALUES ('$email','$password')";
+            $query2 = "INSERT INTO `utilisateur`(`email`, `password`) VALUES ('$email','$password_ash')";
             $data2 = $database->read($query2);
             echo "Utilisateur bien rajouter."
             ?>
@@ -43,8 +56,7 @@ $database = new Database();
             <?php
         }
     }
+    echo $_GET['status'];
     ?>
-
-
 </body>
 </html>
