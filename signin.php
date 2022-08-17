@@ -5,6 +5,7 @@ error_reporting(0);
 // Connexion a la bdd
 require_once 'bdd/database.php';
 $database = new Database();
+
 ?>
 
 <!DOCTYPE html>
