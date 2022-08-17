@@ -35,15 +35,11 @@ $database = new Database();
         // On regarder si l'utilisateur existe ou pas.
         $query = "SELECT * FROM utilisateur WHERE BINARY email='".$email."'";
         $data = $database->read($query);
-        foreach($data as $dataV2):
-            $password_ash = $dataV2['password_ash'];
-            
-        endforeach;
-        
+
         if(!empty($data[0])){
                 ?>
                     <script>
-                        location.replace("sign.php?status=Email déjà enregistrer.")
+                        location.replace("logout.php?status=Email déjà enregistrer.")
                     </script>
                 <?php
 
@@ -52,7 +48,7 @@ $database = new Database();
             $data2 = $database->read($query2);
             echo "Utilisateur bien rajouter."
             ?>
-            <a href="sign.php">Revenir a la page de connexion.</a>
+                <a href="sign.php">Revenir a la page de connexion.</a>
             <?php
         }
     }

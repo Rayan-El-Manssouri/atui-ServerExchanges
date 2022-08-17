@@ -47,34 +47,26 @@ if(!est_connecter()){
             $atuiServerExchanges_Sendemail = htmlentities($_POST['email']);
             $atuiServerExchanges_Sendpassword = htmlentities($_POST['password']);
             //BINARY est en sql pour qui prend compte des majuscule est minuscule.
-            $query = "SELECT * FROM utilisateur WHERE BINARY email='".$atuiServerExchanges_Sendemail."' AND BINARY password='".$atuiServerExchanges_Sendpassword."' ";
+            $query = "SELECT * FROM utilisateur WHERE BINARY email='".$atuiServerExchanges_Sendemail."'";
             $data = $database->read($query);
-
-            if(!empty($data[0])){
-                //Recuperation de l'email
-                $_SESSION['email'] = $data[0]["email"];
-
-                //Recuperation de l'id de l'utilisateur ce qui ous permettra de savoir a qui ça appartient.
-                $_SESSION['id'] = $data[0]["IdUtilisateur"];
-
-                // Variable connecte qui dit si le compte connecter ou pas. $_SESSION['connecte'] = 0 => déconnecter ,  $_SESSION['connecte'] = 1 => connecter.
-                $_SESSION['connecte'] = 1;
-                ?>
-                    <script>
-                        // On le redirige aux panel si tous est ok.
-                        location.replace("confirmer/panel.php");
-                    </script>
-                <?php
-            }else{
-                $atuiServerExchanges_Error = "Mot de passe ou email incorect";
-                ?>
-                    <script>
-                        location.replace("sign.php?status=<?=$atuiServerExchanges_Error?>")
-                    </script>
-                <?php
+            foreach ($data as $dataV2 ) {
+                $passwordHash = $dataV2['password'];
             }
-        }
-        
+            var_dump($data);
+            if(!empty($data[0])){
+                if(password_verify($atuiServerExchanges_Sendpassword, $passwordHash)){
+                    $_SESSION['connecte'] = 1;
+                    header("Location: confirmer/panel.php");
+                }else{
+                    $atuiServerExchanges_Error = "Mot de passe ou email incorect";
+                    ?>
+                        <script>
+                            location.replace("sign.php?status=<?=$atuiServerExchanges_Error?>")
+                        </script>
+                    <?php
+                }
+            }
+            }
         echo $_GET['status'];
         ?>
 </body>
