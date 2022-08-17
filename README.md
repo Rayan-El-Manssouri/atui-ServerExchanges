@@ -1,4 +1,4 @@
-# ATUI_ServerEchange.
+# ATUI ServerEchange.
 
 Bienvenue sur le serveur exchange de ATUI (Alex Tech User Interface)
 
@@ -6,8 +6,6 @@ Qui est tous simplement un framework.
 
 # Table des matiére
 Structure des projet.
-
-
 
 ## Structure du projet
 ### login.php
