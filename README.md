@@ -5,8 +5,7 @@ Bienvenue sur le serveur exchange de ATUI (Alex Tech User Interface)
 Qui est tous simplement un framework.
 
 # Table des matiére
-[Managed Disks](#managed-disks)
-[login.php](#loginphp)
+[Managed Disks](##loginphp)
 
 ## Structure du projet
 ### login.php
