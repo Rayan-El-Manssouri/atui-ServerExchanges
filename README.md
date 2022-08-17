@@ -5,11 +5,11 @@ Bienvenue sur le serveur exchange de ATUI (Alex Tech User Interface)
 Qui est tous simplement un framework.
 
 ## Structure du projet
-### sign.php
+### login.php
 
 Page de connexion de atui
 
-### sign.php
+### signin.php
 
 Page d'inscription de atui
 
