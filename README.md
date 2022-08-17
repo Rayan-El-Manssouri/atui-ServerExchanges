@@ -6,19 +6,19 @@ Qui est tous simplement un framework.
 
 ## Structure du projet
 sign.php
-```Page de connexion de atui.```
+Page de connexion de atui
 
 sign.php
-```Page d'inscription de atui.```
+Page d'inscription de atui
 
 
 Le fichier function.
-```Contient auth.php est qui le function est_connecter en php, qui permet de savoir si l'utilisateur est connecter ou non.```
-```logout.php qui est la parti déconnection de l'utilisateur. pour déconnecter l'utilisateur rediriger le ici.```
+Contient auth.php est qui le function est_connecter en php, qui permet de savoir si l'utilisateur est connecter ou non.
+logout.php qui est la parti déconnection de l'utilisateur. pour déconnecter l'utilisateur rediriger le ici.
 
 Fichier comfirmer
-```Juste un fichier qui contient le panel (La ou on peut gérer le compte.)```
+Juste un fichier qui contient le panel (La ou on peut gérer le compte.)
 
 Fichier bdd
-```Le fichier bdd permet de gérer tous las base de donné. (database.php qui est le fichier a faire la liason entre la page est la bdd.)```
-```Le fichier ATUI.sql qui contient tous les requetes pour faire les tables qui compose la bdd.)```
+Le fichier bdd permet de gérer tous las base de donné. (database.php qui est le fichier a faire la liason entre la page est la bdd.)
+Le fichier ATUI.sql qui contient tous les requetes pour faire les tables qui compose la bdd.)
