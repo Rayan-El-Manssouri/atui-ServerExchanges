@@ -1,0 +1,60 @@
+/* Global */
+
+body
+{
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     width : 100vw;
+     height : 100vh;
+}
+
+article
+{
+     width : 400px;
+     padding : 20px;
+}
+
+article > img /* Icon */
+{
+     width : 100px;
+}
+
+article > h1 /* Title */
+{
+     font-weight: bold;
+     font-size: 1.7rem;
+     margin : 20px 0;
+}
+
+article > a /* Link */
+{
+     margin : 10px 0;
+}
+
+article,
+article form
+{
+     display: flex;
+     align-items: center;
+     flex-direction: column;
+}
+
+
+/* Responsives */
+
+@media (min-width : 768px) /* Computers */
+{
+     body
+     {
+          background-color: var(--atuiKernel_ColorschemeOA3);
+     }
+
+     article
+     {
+          background-color: var(--atuiKernel_ColorschemeOB0);
+          border-radius: var(--atuiKernel_Borderradius);
+          box-shadow: var(--atuiKernel_Shadow);
+     }
+}
+
